@@ -245,3 +245,14 @@ rules:
     - Mention authorization requirements.
     - Mention database impact.
     - Mention AI behavior when applicable.
+
+  database:
+    - Never modify Eloquent relationships, foreign keys, model associations, or database schema unless I explicitly request it.
+    - Treat all existing relationships as locked.
+    - If you think a relationship should be changed or improved, DO NOT implement the change.
+    - First enter Plan Mode and explain:
+      - what you want to change,
+      - why you recommend it,
+      - what impact it has,
+      - then wait for my approval.
+    - Do not generate or apply migrations that modify relationships without my confirmation.
