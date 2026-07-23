@@ -287,6 +287,7 @@ Examples:
 - Gender
 - Phone number
 - Address
+- Allergies
 
 Each patient belongs to one doctor.
 
