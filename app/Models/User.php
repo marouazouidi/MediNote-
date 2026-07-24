@@ -31,4 +31,14 @@ class User extends Authenticatable
             'role' => RoleEnum::class,
         ];
     }
+
+    public function patients()
+    {
+        return $this->hasMany(Patient::class);
+    }
+
+    public function textBruts()
+    {
+        return $this->hasMany(TextBrut::class);
+    }
 }
