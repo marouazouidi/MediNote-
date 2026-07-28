@@ -2,19 +2,19 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\RoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTextBrutRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->role === RoleEnum::Doctor;
     }
 
     public function rules(): array
     {
         return [
-            'appointment_id' => ['nullable', 'integer', 'exists:appointments,id', 'unique:text_bruts,appointment_id,' . $this->route('text_brut')],
             'content'        => ['nullable', 'string'],
         ];
     }
