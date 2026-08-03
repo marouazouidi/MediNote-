@@ -10,15 +10,15 @@ class PrescriptionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'              => $this->id,
+            'id' => $this->id,
             'consultation_id' => $this->consultation_id,
             'medication_name' => $this->medication_name,
-            'dosage'          => $this->dosage,
-            'frequency'       => $this->frequency,
-            'duration'        => $this->duration,
-            'instructions'    => $this->instructions,
-            'created_at'      => $this->created_at,
-            'updated_at'      => $this->updated_at,
+            'dosage' => $this->dosage,
+            'frequency' => $this->frequency,
+            'duration' => $this->duration,
+            'instructions' => $this->instructions,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\TextBrut;
 use App\Http\Requests\AnalyzeTextBrutRequest;
 use App\Http\Requests\StoreTextBrutRequest;
 use App\Http\Requests\UpdateTextBrutRequest;
 use App\Http\Requests\ValidateTextBrutRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Http\Resources\TextBrutResource;
+use App\Models\TextBrut;
 use App\Services\TextBrutService;
 
 class TextBrutController extends Controller
@@ -23,8 +23,8 @@ class TextBrutController extends Controller
         $textBrut = $this->textBrutService->store($request->validated());
 
         return (new TextBrutResource($textBrut))
-           ->response()
-           ->setStatusCode(201);
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function show(TextBrut $textBrut)
@@ -43,6 +43,8 @@ class TextBrutController extends Controller
 
     public function analyze(AnalyzeTextBrutRequest $request, TextBrut $textBrut)
     {
+        $this->authorize('analyze', $textBrut);
+
         $this->textBrutService->analyze($textBrut);
 
         return response()->json([
@@ -52,10 +54,12 @@ class TextBrutController extends Controller
 
     public function validate(ValidateTextBrutRequest $request, TextBrut $textBrut)
     {
+        $this->authorize('validate', $textBrut);
+
         $consultation = $this->textBrutService->validate($textBrut);
 
         return (new ConsultationResource($consultation))
-           ->response()
-           ->setStatusCode(201);
+            ->response()
+            ->setStatusCode(201);
     }
 }

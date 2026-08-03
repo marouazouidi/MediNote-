@@ -7,6 +7,7 @@ use App\Enums\AnalysisStatusEnum;
 use App\Jobs\AnalyzeConsultationJob;
 use App\Models\Consultation;
 use App\Models\TextBrut;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class TextBrutService
@@ -33,12 +34,24 @@ class TextBrutService
         $textBrut->update($data);
 
         return $textBrut->load([
-            'appointment', 'doctor'
+            'appointment', 'doctor',
         ]);
     }
 
     public function analyze(TextBrut $textBrut): void
     {
+        if ($textBrut->analysis_status === AnalysisStatusEnum::Analyzed
+            || $textBrut->analysis_status === AnalysisStatusEnum::Validated
+        ) {
+            throw ValidationException::withMessages([
+                'analysis_status' => 'The AI analysis has already been completed.',
+            ]);
+        }
+
+        $textBrut->update([
+            'analysis_status' => AnalysisStatusEnum::Pending,
+        ]);
+
         AnalyzeConsultationJob::dispatch($textBrut);
     }
 
@@ -74,11 +87,19 @@ class TextBrutService
             ]);
         }
 
-        $consultation = $this->consultationService->createFromValidatedAi($textBrut, $result);
+        if ($textBrut->consultation()->exists()) {
+            throw ValidationException::withMessages([
+                'consultation' => 'A consultation already exists for this text.',
+            ]);
+        }
 
-        $this->markAsValidated($textBrut);
-        $this->aiResultStore->forget($textBrut);
+        return DB::transaction(function () use ($textBrut, $result) {
+            $consultation = $this->consultationService->createFromValidatedAi($textBrut, $result);
 
-        return $consultation;
+            $this->markAsValidated($textBrut);
+            $this->aiResultStore->forget($textBrut);
+
+            return $consultation;
+        });
     }
 }
