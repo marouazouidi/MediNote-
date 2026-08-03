@@ -5,7 +5,7 @@ namespace App\Enums;
 enum AnalysisStatusEnum: string
 {
     case Pending = 'pending';
-    case Processing = 'processing';
-    case Completed = 'completed';
+    case Analyzed = 'analyzed';
+    case Validated = 'validated';
     case Failed = 'failed';
 }
