@@ -5,7 +5,6 @@ namespace App\Services;
 use App\AI\Schemas\AiAnalysisResult;
 use App\Models\Consultation;
 use App\Models\TextBrut;
-use Illuminate\Support\Facades\DB;
 
 class ConsultationService
 {
@@ -14,52 +13,33 @@ class ConsultationService
         return Consultation::with('textBrut')->latest()->paginate(5);
     }
 
-    public function store(array $data): Consultation
-    {
-        return Consultation::create($data);
-    }
-
     public function show(Consultation $consultation): Consultation
     {
         return $consultation->load('textBrut');
     }
 
-    public function update(Consultation $consultation, array $data): Consultation
-    {
-        $consultation->update($data);
-
-        return $consultation;
-    }
-
-    public function destroy(Consultation $consultation): bool
-    {
-        return $consultation->delete();
-    }
-
     public function createFromValidatedAi(TextBrut $textBrut, AiAnalysisResult $result): Consultation
     {
-        return DB::transaction(function () use ($textBrut, $result) {
-            $consultation = Consultation::create([
-                'text_brut_id'    => $textBrut->id,
-                'chief_complaint' => $result->chief_complaint,
-                'symptoms'        => $result->symptoms,
-                'observations'    => $result->observations,
-                'diagnosis'       => $result->diagnosis,
-                'follow_up_date'  => $result->follow_up_date,
-                'validated_at'    => now(),
+        $consultation = Consultation::create([
+            'text_brut_id' => $textBrut->id,
+            'chief_complaint' => $result->chief_complaint,
+            'symptoms' => $result->symptoms,
+            'observations' => $result->observations,
+            'diagnosis' => $result->diagnosis,
+            'follow_up_date' => $result->follow_up_date,
+            'validated_at' => now(),
+        ]);
+
+        foreach ($result->prescriptions as $prescription) {
+            $consultation->prescriptions()->create([
+                'medication_name' => $prescription->medication_name,
+                'dosage' => $prescription->dosage,
+                'frequency' => $prescription->frequency,
+                'duration' => $prescription->duration,
+                'instructions' => $prescription->instructions,
             ]);
+        }
 
-            foreach ($result->prescriptions as $prescription) {
-                $consultation->prescriptions()->create([
-                    'medication_name' => $prescription->medication_name,
-                    'dosage'          => $prescription->dosage,
-                    'frequency'       => $prescription->frequency,
-                    'duration'        => $prescription->duration,
-                    'instructions'    => $prescription->instructions,
-                ]);
-            }
-
-            return $consultation->load(['textBrut', 'prescriptions']);
-        });
+        return $consultation->load(['textBrut', 'prescriptions']);
     }
 }
