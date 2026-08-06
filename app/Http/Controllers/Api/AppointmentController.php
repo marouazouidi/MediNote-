@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
+use App\Models\Appointment;
 use App\Services\AppointmentService;
 use Illuminate\Http\Request;
 
@@ -18,6 +18,8 @@ class AppointmentController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Appointment::class);
+
         $appointments = $this->appointmentService->index($request->only([
             'status', 'date_from', 'date_to',
         ]));
@@ -27,6 +29,8 @@ class AppointmentController extends Controller
 
     public function store(StoreAppointmentRequest $request)
     {
+        $this->authorize('create', Appointment::class);
+
         $appointment = $this->appointmentService->store($request->validated());
 
         return (new AppointmentResource($appointment))->response()->setStatusCode(201);
@@ -34,6 +38,8 @@ class AppointmentController extends Controller
 
     public function show(Appointment $appointment)
     {
+        $this->authorize('view', $appointment);
+
         return new AppointmentResource(
             $this->appointmentService->show($appointment)
         );
@@ -41,6 +47,8 @@ class AppointmentController extends Controller
 
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
+        $this->authorize('update', $appointment);
+
         $appointment = $this->appointmentService->update($appointment, $request->validated());
 
         return new AppointmentResource($appointment);
@@ -48,6 +56,8 @@ class AppointmentController extends Controller
 
     public function destroy(Appointment $appointment)
     {
+        $this->authorize('delete', $appointment);
+
         $this->appointmentService->destroy($appointment);
 
         return response()->json(['message' => 'Appointment cancelled successfully']);

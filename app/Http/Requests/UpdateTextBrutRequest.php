@@ -15,7 +15,7 @@ class UpdateTextBrutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content'        => ['nullable', 'string'],
+            'content' => ['nullable', 'string'],
         ];
     }
 }

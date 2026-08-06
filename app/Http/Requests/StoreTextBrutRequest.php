@@ -16,7 +16,7 @@ class StoreTextBrutRequest extends FormRequest
     {
         return [
             'appointment_id' => ['required', 'integer', 'exists:appointments,id', 'unique:text_bruts,appointment_id'],
-            'content'        => ['required', 'string'],
+            'content' => ['required', 'string'],
         ];
     }
 }

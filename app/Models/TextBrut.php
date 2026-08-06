@@ -3,15 +3,24 @@
 namespace App\Models;
 
 use App\Enums\AnalysisStatusEnum;
+use Database\Factories\TextBrutFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TextBrut extends Model
 {
+    /** @use HasFactory<TextBrutFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'appointment_id',
         'content',
         'analysis_status',
+    ];
+
+    protected $attributes = [
+        'analysis_status' => 'pending',
     ];
 
     protected function casts(): array

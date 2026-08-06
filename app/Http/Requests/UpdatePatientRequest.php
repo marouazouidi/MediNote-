@@ -14,13 +14,13 @@ class UpdatePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'   => ['required', 'string', 'max:255'],
-            'last_name'    => ['required', 'string', 'max:255'],
-            'birth_date'   => ['nullable', 'date'],
-            'gender'       => ['required', 'string', 'in:male,female'],
-            'phone'        => ['nullable', 'string', 'max:20'],
-            'address'      => ['nullable', 'string'],
-            'allergies'    => ['nullable', 'string'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'birth_date' => ['nullable', 'date'],
+            'gender' => ['required', 'string', 'in:male,female'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string'],
+            'allergies' => ['nullable', 'string'],
         ];
     }
 }

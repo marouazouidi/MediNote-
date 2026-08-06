@@ -14,11 +14,11 @@ class UpdateAppointmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id'       => ['nullable', 'integer', 'exists:patients,id'],
+            'patient_id' => ['nullable', 'integer', 'exists:patients,id'],
             'appointment_date' => ['nullable', 'date'],
             'appointment_time' => ['nullable', 'date_format:H:i'],
-            'reason'           => ['nullable', 'string', 'max:255'],
-            'status'           => ['nullable', 'string', 'in:scheduled,completed,cancelled'],
+            'reason' => ['nullable', 'string', 'max:255'],
+            'status' => ['nullable', 'string', 'in:scheduled,completed,cancelled'],
         ];
     }
 }

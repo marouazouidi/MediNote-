@@ -8,17 +8,20 @@ class AppointmentService
 {
     public function index(array $filters = [])
     {
-        $query = Appointment::with('patient');
+        $query = Appointment::with('patient')
+            ->whereHas('patient', function ($q) {
+                $q->where('user_id', auth()->id());
+            });
 
-        if (!empty($filters['status'])) {
+        if (! empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }
 
-        if (!empty($filters['date_from'])) {
+        if (! empty($filters['date_from'])) {
             $query->whereDate('appointment_date', '>=', $filters['date_from']);
         }
 
-        if (!empty($filters['date_to'])) {
+        if (! empty($filters['date_to'])) {
             $query->whereDate('appointment_date', '<=', $filters['date_to']);
         }
 
