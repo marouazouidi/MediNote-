@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Enums\GenderEnum;
+use Database\Factories\PatientFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<PatientFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -42,15 +45,15 @@ class Patient extends Model
 
     public function scopeSearch($query, ?string $term)
     {
-        if (!$term) {
+        if (! $term) {
             return $query;
         }
 
         return $query->where(function ($q) use ($term) {
             $q->where('first_name', 'like', "%{$term}%")
-              ->orWhere('last_name', 'like', "%{$term}%")
-              ->orWhere('phone', 'like', "%{$term}%")
-              ->orWhere('address', 'like', "%{$term}%");
+                ->orWhere('last_name', 'like', "%{$term}%")
+                ->orWhere('phone', 'like', "%{$term}%")
+                ->orWhere('address', 'like', "%{$term}%");
         });
     }
 }

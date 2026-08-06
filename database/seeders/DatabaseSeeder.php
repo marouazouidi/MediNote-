@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-    User::firstOrCreate(
-        ['email' => 'doctor@medinote.com'],
-        [
-            'name' => 'Dr. Dupont',
-            'password' => Hash::make('password'),
-            'role' => RoleEnum::Doctor,
-        ]
-    );
+        User::firstOrCreate(
+            ['email' => 'doctor@medinote.com'],
+            [
+                'name' => 'Dr. Dupont',
+                'password' => Hash::make('password'),
+                'role' => RoleEnum::Doctor,
+            ]
+        );
     }
 }

@@ -8,12 +8,15 @@ class PatientService
 {
     public function index()
     {
-        return Patient::latest()->paginate(15);
+        return Patient::where('user_id', auth()->id())->latest()->paginate(15);
     }
 
     public function search(?string $term)
     {
-        return Patient::search($term)->latest()->paginate(15);
+        return Patient::where('user_id', auth()->id())
+            ->search($term)
+            ->latest()
+            ->paginate(15);
     }
 
     public function store(array $data): Patient

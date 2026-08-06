@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Patient;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
+use App\Models\Patient;
 use App\Services\PatientService;
 use Illuminate\Http\Request;
 
@@ -18,6 +18,8 @@ class PatientController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Patient::class);
+
         return PatientResource::collection(
             $this->patientService->index()
         );
@@ -25,6 +27,8 @@ class PatientController extends Controller
 
     public function search(Request $request)
     {
+        $this->authorize('viewAny', Patient::class);
+
         $request->validate(['q' => 'required|string|max:255']);
 
         return PatientResource::collection(
@@ -34,6 +38,8 @@ class PatientController extends Controller
 
     public function store(StorePatientRequest $request)
     {
+        $this->authorize('create', Patient::class);
+
         $patient = $this->patientService->store($request->validated());
 
         return (new PatientResource($patient))->response()->setStatusCode(201);
@@ -41,6 +47,8 @@ class PatientController extends Controller
 
     public function show(Patient $patient)
     {
+        $this->authorize('view', $patient);
+
         return new PatientResource(
             $this->patientService->show($patient)
         );
@@ -48,6 +56,8 @@ class PatientController extends Controller
 
     public function update(UpdatePatientRequest $request, Patient $patient)
     {
+        $this->authorize('update', $patient);
+
         $patient = $this->patientService->update($patient, $request->validated());
 
         return new PatientResource($patient);
@@ -55,6 +65,8 @@ class PatientController extends Controller
 
     public function destroy(Patient $patient)
     {
+        $this->authorize('delete', $patient);
+
         $this->patientService->destroy($patient);
 
         return response()->json(['message' => 'Patient deleted successfully']);

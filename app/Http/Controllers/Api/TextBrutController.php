@@ -20,6 +20,8 @@ class TextBrutController extends Controller
 
     public function store(StoreTextBrutRequest $request)
     {
+        $this->authorize('create', TextBrut::class);
+
         $textBrut = $this->textBrutService->store($request->validated());
 
         return (new TextBrutResource($textBrut))
@@ -29,6 +31,8 @@ class TextBrutController extends Controller
 
     public function show(TextBrut $textBrut)
     {
+        $this->authorize('view', $textBrut);
+
         return new TextBrutResource(
             $this->textBrutService->show($textBrut)
         );
@@ -36,6 +40,8 @@ class TextBrutController extends Controller
 
     public function update(UpdateTextBrutRequest $request, TextBrut $textBrut)
     {
+        $this->authorize('update', $textBrut);
+
         $textBrut = $this->textBrutService->update($textBrut, $request->validated());
 
         return new TextBrutResource($textBrut);

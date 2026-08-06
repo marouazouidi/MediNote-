@@ -31,6 +31,14 @@ class TextBrutService
 
     public function update(TextBrut $textBrut, array $data): TextBrut
     {
+        if ($textBrut->analysis_status === AnalysisStatusEnum::Analyzed
+            || $textBrut->analysis_status === AnalysisStatusEnum::Validated
+        ) {
+            throw ValidationException::withMessages([
+                'analysis_status' => 'The text can no longer be modified after AI analysis.',
+            ]);
+        }
+
         $textBrut->update($data);
 
         return $textBrut->load([

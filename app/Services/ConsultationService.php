@@ -10,12 +10,17 @@ class ConsultationService
 {
     public function index()
     {
-        return Consultation::with('textBrut')->latest()->paginate(5);
+        return Consultation::with(['textBrut', 'prescriptions'])
+            ->whereHas('textBrut', function ($q) {
+                $q->where('user_id', auth()->id());
+            })
+            ->latest()
+            ->paginate(5);
     }
 
     public function show(Consultation $consultation): Consultation
     {
-        return $consultation->load('textBrut');
+        return $consultation->load(['textBrut', 'prescriptions']);
     }
 
     public function createFromValidatedAi(TextBrut $textBrut, AiAnalysisResult $result): Consultation

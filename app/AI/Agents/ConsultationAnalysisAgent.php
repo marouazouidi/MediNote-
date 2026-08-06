@@ -7,8 +7,6 @@ use Laravel\Ai\Contracts\Agent;
 use Laravel\Ai\Contracts\Conversational;
 use Laravel\Ai\Contracts\HasStructuredOutput;
 use Laravel\Ai\Contracts\HasTools;
-use Laravel\Ai\Contracts\Tool;
-use Laravel\Ai\Messages\Message;
 use Laravel\Ai\Promptable;
 use Stringable;
 
@@ -18,7 +16,7 @@ class ConsultationAnalysisAgent implements Agent, Conversational, HasStructuredO
 
     public function instructions(): Stringable|string
     {
-        return <<<PROMPT
+        return <<<'PROMPT'
             You are a medical analysis assistant. Your role is to analyze free-text consultation notes written by a doctor and extract structured medical information.
 
             Analyze the provided consultation note and extract the following:

@@ -15,6 +15,8 @@ class ConsultationController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Consultation::class);
+
         return ConsultationResource::collection(
             $this->consultationService->index()
         );
@@ -22,6 +24,8 @@ class ConsultationController extends Controller
 
     public function show(Consultation $consultation)
     {
+        $this->authorize('view', $consultation);
+
         return new ConsultationResource(
             $this->consultationService->show($consultation)
         );

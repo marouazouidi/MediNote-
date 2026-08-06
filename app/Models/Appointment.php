@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Enums\AppointmentStatusEnum;
+use Database\Factories\AppointmentFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<AppointmentFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'patient_id',
@@ -16,6 +19,10 @@ class Appointment extends Model
         'appointment_time',
         'reason',
         'status',
+    ];
+
+    protected $attributes = [
+        'status' => 'scheduled',
     ];
 
     protected function casts(): array
