@@ -1,0 +1,327 @@
+name: 'Text Bruts'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/text-bruts
+    metadata:
+      custom: []
+      groupName: 'Text Bruts'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create a new text brut.'
+      description: 'Stores a free-text medical note written by the doctor and links it to an existing appointment. Each appointment can only have one associated text brut. Only doctors can create text bruts.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      appointment_id:
+        custom: []
+        name: appointment_id
+        description: 'The identifier of the appointment this note belongs to. Must be unique.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: 'The free-text medical note written by the doctor.'
+        required: true
+        example: 'Patient presents with persistent headache and mild fever for the past two days.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      appointment_id: 1
+      content: 'Patient presents with persistent headache and mild fever for the past two days.'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "user_id": 1,
+              "doctor": {
+                "id": 1,
+                "name": "Dr. Jane Doe",
+                "email": "doctor@example.com",
+                "role": "doctor",
+                "created_at": "2026-08-07T10:00:00.000000Z"
+              },
+              "appointment_id": 1,
+              "appointment": [],
+              "content": "Patient presents with persistent headache and mild fever for the past two days.",
+              "analysis_status": "pending",
+              "created_at": "2026-08-07T10:00:00.000000Z",
+              "updated_at": "2026-08-07T10:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 401
+        content: |-
+          {
+            "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+            "message": "This action is unauthorized."
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "The content field is required.",
+            "errors": {
+              "content": ["The content field is required."]
+            }
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/text-bruts/{textBrut_id}'
+    metadata:
+      custom: []
+      groupName: 'Text Bruts'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show a text brut.'
+      description: 'Retrieves the details of a specific text brut belonging to the authenticated doctor, including the associated appointment, content, and current analysis status.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      textBrut_id:
+        custom: []
+        name: textBrut_id
+        description: 'The ID of the textBrut.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      textBrut:
+        custom: []
+        name: textBrut
+        description: 'The unique identifier of the text brut.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      textBrut_id: 16
+      textBrut: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "user_id": 1,
+              "doctor": {
+                "id": 1,
+                "name": "Dr. Jane Doe",
+                "email": "doctor@example.com",
+                "role": "doctor",
+                "created_at": "2026-08-07T10:00:00.000000Z"
+              },
+              "appointment_id": 1,
+              "appointment": [],
+              "content": "Patient presents with persistent headache and mild fever for the past two days.",
+              "analysis_status": "pending",
+              "created_at": "2026-08-07T10:00:00.000000Z",
+              "updated_at": "2026-08-07T10:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 401
+        content: |-
+          {
+            "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+            "message": "This action is unauthorized."
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/text-bruts/{textBrut_id}'
+    metadata:
+      custom: []
+      groupName: 'Text Bruts'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a text brut.'
+      description: 'Updates the content of an existing text brut belonging to the authenticated doctor. Once the text brut has been analyzed or validated, it can no longer be modified.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      textBrut_id:
+        custom: []
+        name: textBrut_id
+        description: 'The ID of the textBrut.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      textBrut:
+        custom: []
+        name: textBrut
+        description: 'The unique identifier of the text brut.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      textBrut_id: 16
+      textBrut: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      content:
+        custom: []
+        name: content
+        description: 'nullable The updated free-text medical note.'
+        required: false
+        example: 'Updated note: patient reports improved symptoms after medication.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      content: 'Updated note: patient reports improved symptoms after medication.'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "user_id": 1,
+              "doctor": [],
+              "appointment_id": 1,
+              "appointment": [],
+              "content": "Updated note: patient reports improved symptoms after medication.",
+              "analysis_status": "pending",
+              "created_at": "2026-08-07T10:00:00.000000Z",
+              "updated_at": "2026-08-07T11:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 401
+        content: |-
+          {
+            "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+            "message": "This action is unauthorized."
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "The text can no longer be modified after AI analysis.",
+            "errors": {
+              "analysis_status": ["The text can no longer be modified after AI analysis."]
+            }
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

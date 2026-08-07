@@ -14,7 +14,7 @@ return [
     'title' => config('app.name').' API Documentation',
 
     // A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
-    'description' => '',
+    'description' => 'MediNote is an AI-powered medical practice management system. It allows physicians to transform free-text consultation notes into structured medical records using Artificial Intelligence.',
 
     // Text to place in the "Introduction" section, right after the `description`. Markdown and HTML are supported.
     'intro_text' => <<<'INTRO'
@@ -179,7 +179,14 @@ return [
         // You can override this by listing the groups, subgroups and endpoints here in the order you want them.
         // See https://scribe.knuckles.wtf/blog/laravel-v4#easier-sorting and https://scribe.knuckles.wtf/laravel/reference/config#order for details
         // Note: does not work for `external` docs types
-        'order' => [],
+        'order' => [
+            'Authentication',
+            'Patients',
+            'Appointments',
+            'Text Bruts',
+            'AI Analysis',
+            'Consultations',
+        ],
     ],
 
     // Custom logo path. This will be used as the value of the src attribute for the <img> tag,
