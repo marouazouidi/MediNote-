@@ -15,4 +15,9 @@ class AnalyzeTextBrutRequest extends FormRequest
     {
         return [];
     }
+
+    public function bodyParameters(): array
+    {
+        return [];
+    }
 }
