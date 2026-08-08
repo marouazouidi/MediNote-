@@ -1,58 +1,286 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🩺 MediNote – Gestion de Cabinet Médical avec Intelligence Artificielle
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📖 Description
 
-## About Laravel
+MediNote est une application web développée avec **Laravel 13** permettant aux médecins de gérer leurs patients, rendez-vous et consultations.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Le projet intègre une **Intelligence Artificielle** basée sur **Laravel AI SDK** et **Groq** afin d'analyser automatiquement une note médicale rédigée en texte libre et de générer une consultation structurée ainsi que les prescriptions correspondantes.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Le médecin garde toujours le contrôle : aucune consultation n'est enregistrée sans validation.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+# ✨ Fonctionnalités
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🔐 Authentification
+- Inscription
+- Connexion
+- Déconnexion
+- Gestion des sessions avec Laravel Sanctum
+- Interface d'authentification avec Laravel Breeze
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 👨‍⚕️ Gestion des Patients
+- Ajouter un patient
+- Modifier un patient
+- Supprimer un patient
+- Rechercher un patient
+- Consulter la liste des patients
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 📅 Gestion des Rendez-vous
+- Créer un rendez-vous
+- Modifier un rendez-vous
+- Supprimer un rendez-vous
+- Consulter les rendez-vous
 
-```bash
-composer require laravel/boost --dev
+---
 
-php artisan boost:install
+## 📝 Gestion des Notes Médicales
+- Création d'une note médicale libre (Text Brut)
+- Modification avant analyse
+- Analyse par Intelligence Artificielle
+
+---
+
+## 🤖 Intelligence Artificielle
+- Analyse automatique du texte libre
+- Extraction des informations médicales
+- Génération d'une consultation structurée
+- Génération automatique des prescriptions
+- Validation du résultat par le médecin
+
+---
+
+## 📋 Gestion des Consultations
+- Consultation générée automatiquement
+- Historique des consultations
+- Affichage des prescriptions
+
+---
+
+# 🤖 Workflow IA
+
+```text
+Médecin
+
+↓
+
+Création d'une note médicale
+
+↓
+
+Analyse par Intelligence Artificielle
+
+↓
+
+Extraction des données médicales
+
+↓
+
+Validation par le médecin
+
+↓
+
+Création de la consultation
+
+↓
+
+Création automatique des prescriptions
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+# 🛠️ Technologies utilisées
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Backend
+- Laravel 13
+- PHP 8.3
+- MySQL
+- Laravel Sanctum
+- Laravel AI SDK
+- Laravel Queues
 
-## Code of Conduct
+### Frontend
+- Blade
+- Laravel Breeze
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Intelligence Artificielle
+- Groq API
+- Structured Output
 
-## Security Vulnerabilities
+### Documentation
+- Scribe
+- OpenAPI
+- Postman Collection
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+# 🏗️ Architecture
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```text
+Controller
+      │
+      ▼
+Service Layer
+      │
+      ▼
+AI Service
+      │
+      ▼
+Laravel AI SDK
+      │
+      ▼
+Groq
+      │
+      ▼
+Structured Output
+      │
+      ▼
+Consultation
+      │
+      ▼
+Prescriptions
+```
+
+---
+
+# 🗄️ Base de données
+
+## MCD
+
+![MCD](docs/MCD.png)
+
+---
+
+## MLD
+
+![MLD](docs/MLD.png)
+
+---
+
+# 📚 Documentation API
+
+La documentation est générée automatiquement avec **Scribe**.
+
+Accessible après le lancement du projet :
+
+```
+http://localhost/docs
+```
+
+Elle contient :
+
+- Authentification
+- Patients
+- Rendez-vous
+- Text Bruts
+- Analyse IA
+- Consultations
+
+---
+
+# 🚀 Installation
+
+## Cloner le projet
+
+```bash
+git clone https://github.com/VOTRE_USERNAME/MediNote.git
+```
+
+```bash
+cd MediNote
+```
+
+Installer les dépendances
+
+```bash
+composer install
+```
+
+```bash
+npm install
+```
+
+Copie du fichier d'environnement
+
+```bash
+cp .env.example .env
+```
+
+Générer la clé
+
+```bash
+php artisan key:generate
+```
+
+Configurer la base de données puis exécuter
+
+```bash
+php artisan migrate
+```
+
+Lancer le serveur
+
+```bash
+php artisan serve
+```
+
+Compiler les assets
+
+```bash
+npm run dev
+```
+
+Lancer la file d'attente
+
+```bash
+php artisan queue:work
+```
+
+---
+
+# ⚙️ Configuration
+
+Ajouter votre clé API Groq dans le fichier `.env`
+
+```env
+GROQ_API_KEY=your_api_key
+```
+
+---
+
+# 📂 Documentation du projet
+
+Le dossier **docs/** contient :
+
+- Cahier des charges
+- MCD
+- MLD
+
+---
+
+# 📸 Captures d'écran
+
+Les captures d'écran de l'application seront ajoutées ici :
+
+- Authentification
+- Dashboard
+- Gestion des patients
+- Gestion des rendez-vous
+- Analyse IA
+- Consultation
+- Prescription
+
+---
+
+# 👩‍💻 Auteur
+
+**Maroua Zouidi**
+
+AI-Augmented Backend Developer
+
+**Technologies :**
+Laravel • PHP • MySQL • Blade • Bootstrap • REST API • Laravel AI SDK • Groq • Scribe

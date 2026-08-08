@@ -21,4 +21,30 @@ class UpdateAppointmentRequest extends FormRequest
             'status' => ['nullable', 'string', 'in:scheduled,completed,cancelled'],
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'patient_id' => [
+                'description' => 'The updated identifier of the patient. This field is nullable.',
+                'example' => 1,
+            ],
+            'appointment_date' => [
+                'description' => 'The updated date of the appointment. This field is nullable.',
+                'example' => '2026-09-15',
+            ],
+            'appointment_time' => [
+                'description' => 'The updated time of the appointment in 24-hour format (HH:MM). This field is nullable.',
+                'example' => '10:30',
+            ],
+            'reason' => [
+                'description' => 'The updated reason or purpose of the appointment. This field is nullable.',
+                'example' => 'Follow-up consultation',
+            ],
+            'status' => [
+                'description' => 'The updated status of the appointment. Must be one of: scheduled, completed, cancelled. This field is nullable.',
+                'example' => 'completed',
+            ],
+        ];
+    }
 }

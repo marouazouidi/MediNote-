@@ -21,4 +21,30 @@ class StoreAppointmentRequest extends FormRequest
             'status' => ['nullable', 'string', 'in:scheduled,completed,cancelled'],
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'patient_id' => [
+                'description' => 'The identifier of the patient this appointment is scheduled for.',
+                'example' => 1,
+            ],
+            'appointment_date' => [
+                'description' => 'The date of the appointment.',
+                'example' => '2026-09-15',
+            ],
+            'appointment_time' => [
+                'description' => 'The time of the appointment in 24-hour format (HH:MM).',
+                'example' => '10:30',
+            ],
+            'reason' => [
+                'description' => 'The reason or purpose of the appointment.',
+                'example' => 'Annual medical check-up',
+            ],
+            'status' => [
+                'description' => 'The status of the appointment. Must be one of: scheduled, completed, cancelled. This field is nullable.',
+                'example' => 'scheduled',
+            ],
+        ];
+    }
 }

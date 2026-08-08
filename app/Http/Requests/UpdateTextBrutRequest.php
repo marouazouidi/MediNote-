@@ -18,4 +18,14 @@ class UpdateTextBrutRequest extends FormRequest
             'content' => ['nullable', 'string'],
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'content' => [
+                'description' => 'The updated free-text medical note. This field is nullable.',
+                'example' => 'Updated note: patient reports improved symptoms after medication.',
+            ],
+        ];
+    }
 }

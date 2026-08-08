@@ -19,4 +19,18 @@ class StoreTextBrutRequest extends FormRequest
             'content' => ['required', 'string'],
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'appointment_id' => [
+                'description' => 'The identifier of the appointment this consultation note belongs to. Must be unique per text brut.',
+                'example' => 1,
+            ],
+            'content' => [
+                'description' => 'The free-text medical note written by the doctor during the consultation.',
+                'example' => 'Patient presents with persistent headache and mild fever for the past two days.',
+            ],
+        ];
+    }
 }
